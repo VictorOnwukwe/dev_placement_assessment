@@ -28,7 +28,6 @@
         :id="id"
         :style="{ color: color }"
         v-model="input"
-        @keyup="emit"
         type="text"
       />
     </div>
@@ -91,10 +90,12 @@ export default {
     focus() {
       document.querySelector("#" + this.id).focus();
     },
-    emit(e){
-      this.$emit('input', e.target.value);
-    }
   },
+  watch: {
+    input(val){
+      this.$emit('input', val)
+    }
+  }
 };
 </script>
 <style scoped>

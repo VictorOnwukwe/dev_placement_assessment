@@ -102,7 +102,7 @@
           Filter by
         </p>
       </div>
-      <div style="display: flex;margin-top:8px;position:relative">
+      <div style="display: flex;margin-top:8px;position:relative;">
         <m-input
           iconColor="#ADAFBC"
           background-color="#E2E3EC"
@@ -159,7 +159,7 @@
         <transition :name="transitionName">
           <router-view
             class="router-view"
-            style="position:absolute;width:100%"
+            style="position:absolute;width:100%;height:100%"
           ></router-view>
         </transition>
       </div>
