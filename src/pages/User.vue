@@ -6,7 +6,7 @@
         style="width:180px;height:180px;min-width:180px;min-height:180px;border-radius:50%;border:6px solid #75D6D1;object-fit:cover"
       />
       <div style="margin-left:28px">
-        <h2 style="color:#262A41">
+        <h2 style="color:#262A41;margin-top:16px">
           {{
             `${user.name.title}. ${user.name.first} ${user.name.last}`
           }}&nbsp;<span style="font-weight:300">{{ user.dob.age }}</span>
@@ -15,7 +15,11 @@
           style="color:#262A41;font-weight:400;opacity:0.69;letter-spacing: -0.09px;"
         >
           {{
-            `${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state}`
+            `${user.location.street.number} ${user.location.street.name}, ${
+              user.location.city
+            }, ${user.location.state}${
+              showCountry ? ", " + user.location.country : ""
+            }`
           }}
         </p>
         <button
@@ -62,6 +66,11 @@ export default {
     return {
       user: null,
     };
+  },
+  computed: {
+    showCountry() {
+      return this.$store.getters["users/showCountry"];
+    },
   },
   mounted() {
     this.user = this.$store.getters["users/allUsers"].find(

@@ -1,5 +1,5 @@
 <template>
-  <div style="position:relative;z-index:1">
+  <div style="position:relative;z-index:2">
     <div
       v-if="users.length == 0"
       style="display:flex;justify-content:center;align-items:center;height:100%"
@@ -72,7 +72,6 @@ export default {
     users() {
       this.filterByGender();
       this.updateCurrentUsers();
-      console.log(this.users[0]);
     },
   },
   mounted() {

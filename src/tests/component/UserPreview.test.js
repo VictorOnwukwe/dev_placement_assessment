@@ -1,11 +1,11 @@
 // import { render } from "@testing-library/vue";
-import { mount } from "@vue/test-utils";
+import { mount, createLocalVue } from "@vue/test-utils";
 import UserPreview from "../../components/UserPreview";
 import { isIterable } from "core-js";
+import Router from "vue-router";
 
 describe("User Preview Component", () => {
-  let user;
-  let populatedUser = (user = {
+  let populatedUser =  {
     name: { first: "first", last: "last" },
     picture: { medium: "medium" },
     location: {
@@ -16,7 +16,7 @@ describe("User Preview Component", () => {
     },
     email: "email",
     phone: "112233",
-  });
+  };
   const showCountry = jest.fn();
   beforeEach(() => {});
 
@@ -41,27 +41,31 @@ describe("User Preview Component", () => {
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  // it("should route to user page when route button is clicked", async () => {
-  //   const mockRoute = {
-  //     params: {
-  //       id: 1,
-  //     },
-  //   };
-  //   const mockRouter = {
-  //     push: jest.fn(),
-  //   };
+  it("should route to user profile when route button is clicked", async () => {
+    const localVue = createLocalVue();
+    localVue.use(Router);
+    const router = new Router({
+      routes: [
+        {
+          path: "/users/:email",
+          component: { template: `Just me` },
+          name: "user",
+        },
+      ],
+    });
 
-  //   const wrapper = mount(UserPreview, {
-  //     propsData: {
-  //       user: populatedUser,
-  //     },
-  //     mocks: {
-  //       $route: mockRoute,
-  //       $router: mockRouter,
-  //     },
-  //   });
+    const wrapper = mount(UserPreview, {
+      localVue,
+      router,
+      propsData: {
+        user: populatedUser
+      },
+      computed: {
+        showCountry: showCountry
+      }
+    });
 
-  //   await wrapper.find("button").trigger("click");
-  //   expect(mockRouter.push).toHaveBeenCalledWith('/users/email')
-  // });
+    await wrapper.find("button").trigger("click");
+    expect(wrapper.vm.$route.path).toBe("/users/email");
+  });
 });

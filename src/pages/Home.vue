@@ -102,7 +102,7 @@
           Filter by
         </p>
       </div>
-      <div style="display: flex;margin-top:8px">
+      <div style="display: flex;margin-top:8px;position:relative">
         <m-input
           iconColor="#ADAFBC"
           background-color="#E2E3EC"
@@ -132,7 +132,7 @@
         </select>
         <div style="display:flex;align-items:center;margin-left:1em">
           <label class="switch">
-            <input type="checkbox" v-model="showCountry" :disabled="notList" />
+            <input type="checkbox" v-model="showCountry" />
             <span class="slider"></span>
           </label>
           <label
@@ -147,7 +147,7 @@
       >
         <button
           @click="$router.go(-1)"
-          style="cursor:pointer;background:inherit;border:none;display:flex;position:absolute;z-index:1;"
+          style="cursor:pointer;background:inherit;border:none;display:flex;position:absolute;z-index:1;left:0;top:0"
           v-show="$route.name == 'user'"
         >
           <i
@@ -271,10 +271,12 @@ export default {
   mounted() {
     document.querySelector(".route-house").style.overflow = "auto";
     this.$router.beforeEach((to, from, next) => {
-      document.querySelector(".route-house").style.overflow = "visible";
+      if (!(to.meta.isUsers && from.meta.isUsers))
+        document.querySelector(".route-house").style.overflow = "visible";
       next();
     });
-    this.$router.afterEach(() => {
+    this.$router.afterEach((to, from) => {
+      if (!(to.meta.isUsers && from.meta.isUsers))
       setTimeout(() => {
         document.querySelector(".route-house").style.overflow = "auto";
       }, 500);
@@ -447,11 +449,11 @@ input:checked + .slider:before {
   overflow: hidden;
 }
 .slide-up-leave-to {
-  transform: translateY(-120px);
+  transform: translateY(-150px);
   opacity: 0.05;
 }
 .slide-down-enter {
-  transform: translateY(-120px);
+  transform: translateY(-150px);
   opacity: 0.1;
 }
 

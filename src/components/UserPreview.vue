@@ -6,8 +6,7 @@
     <img :src="user.picture.medium" style="margin:0 auto" />
     <div style="flex-grow:1;padding:0 20px;">
       <p
-        style="font-weight:bold;line-height:1;font-size:14px;color:#262A41"
-        data-testid="names"
+        style="font-weight:bold;line-height:1;font-size:14px;color:#262A41;margin-top:0"
       >
         {{ `${user.name.first} ${user.name.last}` }}
       </p>
@@ -48,6 +47,7 @@
       style="margin-top:auto;margin-bottom:-8px;margin-left:auto"
     >
       <button
+        class="route-button"
         style="background-color:#30bbb5;border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px #30BBB574;cursor:pointer"
       >
         <i class="fas fa-arrow-right" style="color:white;"></i></button
@@ -70,8 +70,8 @@ export default {
 img {
   border-radius: 50%;
   border: 5px solid #75d6d1;
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   object-fit: cover;
 }
 </style>
