@@ -11,7 +11,7 @@ export default {
     Home,
   },
   created(){
-    this.$store.dispatch("users/fetch");
+    this.$store.dispatch("fetchUsers");
   }
 };
 </script>

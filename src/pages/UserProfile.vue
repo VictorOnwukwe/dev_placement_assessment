@@ -1,6 +1,6 @@
 <template>
-  <div style="margin-top:44px">
-    <div class="transition" style="display:flex;" v-if="user">
+  <div>
+    <div class="transition" style="display:flex;margin-top:44px" v-if="user">
       <img
         :src="user.picture.large"
         style="width:180px;height:180px;min-width:180px;min-height:180px;border-radius:50%;border:6px solid #75D6D1;object-fit:cover"
@@ -13,6 +13,7 @@
         </h2>
         <p
           style="color:#262A41;font-weight:400;opacity:0.69;letter-spacing: -0.09px;"
+          class="location"
         >
           {{
             `${user.location.street.number} ${user.location.street.name}, ${
@@ -69,11 +70,11 @@ export default {
   },
   computed: {
     showCountry() {
-      return this.$store.getters["users/showCountry"];
+      return this.$store.getters["showCountry"];
     },
   },
   mounted() {
-    this.user = this.$store.getters["users/allUsers"].find(
+    this.user = this.$store.getters["allUsers"].find(
       (user) => user.email == this.$route.params.email
     );
   },

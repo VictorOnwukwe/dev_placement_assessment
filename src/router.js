@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import User from "./pages/User.vue";
+import UserProfile from "./pages/UserProfile.vue";
 import Users from "./pages/Users.vue";
 
 Vue.use(Router);
@@ -37,7 +37,7 @@ export default new Router({
       },
     {
       path: "/users/:email",
-      component: User,
+      component: UserProfile,
       name: "user",
       meta: {isUsers: false}
     },

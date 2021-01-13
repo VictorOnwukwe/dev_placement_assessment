@@ -12,4 +12,9 @@ describe("Text Box", () => {
 
         expect(wrapper.emitted().input[0]).toEqual(["good"]);
     })
+
+    it("should render correctly when passed user prop", () => {
+        const wrapper = mount(Input);
+        expect(wrapper.html()).toMatchSnapshot();
+      });
 })

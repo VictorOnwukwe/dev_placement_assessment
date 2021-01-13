@@ -12,6 +12,7 @@
       </p>
       <p
         style="color:#262A41;font-size:12px;font-style:italic;line-height:1;font-weight:600;opacity:0.69"
+        class="location"
       >
         {{
           `${user.location.street.number} ${user.location.street.name}, ${
@@ -61,7 +62,7 @@ export default {
   },
   computed: {
     showCountry() {
-      return this.$store.getters["users/showCountry"];
+      return this.$store.getters["showCountry"];
     },
   },
 };

@@ -6,7 +6,7 @@ exports[`User Preview Component should render correctly when passed user prop 1`
     <p style="font-weight: bold; line-height: 1; font-size: 14px; color: rgb(38, 42, 65); margin-top: 0px;">
       first last
     </p>
-    <p style="color: rgb(38, 42, 65); font-size: 12px; font-style: italic; line-height: 1; font-weight: 600; opacity: 0.69;">
+    <p class="location" style="color: rgb(38, 42, 65); font-size: 12px; font-style: italic; line-height: 1; font-weight: 600; opacity: 0.69;">
       1 name, city, state
     </p>
     <div style="line-height: 1; display: flex; flex-wrap: wrap;">

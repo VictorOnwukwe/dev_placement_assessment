@@ -132,7 +132,7 @@
         </select>
         <div style="display:flex;align-items:center;margin-left:1em">
           <label class="switch">
-            <input type="checkbox" v-model="showCountry" />
+            <input type="checkbox" @input="toggleShowCountry" />
             <span class="slider"></span>
           </label>
           <label
@@ -218,20 +218,22 @@ export default {
     return {
       transitionName: "",
       search: "",
-      showCountry: false,
     };
   },
   methods: {
     nextPage() {
-      this.$store.dispatch("users/incrementCurrentPage");
+      this.$store.dispatch("incrementCurrentPage");
     },
     previousPage() {
-      this.$store.dispatch("users/decrementCurrentPage");
+      this.$store.dispatch("decrementCurrentPage");
+    },
+    toggleShowCountry() {
+      this.$store.dispatch("toggleShowCountry");
     },
   },
   computed: {
     userData() {
-      let users = this.$store.getters["users/allUsers"];
+      let users = this.$store.getters["allUsers"];
       return {
         count: users.length,
         maleCount: users.filter((user) => user.gender == "male").length,
@@ -239,7 +241,7 @@ export default {
       };
     },
     page() {
-      return this.$store.getters["users/currentPage"];
+      return this.$store.getters["currentPage"];
     },
     maxPages() {
       let route = this.$route.name;
@@ -264,9 +266,6 @@ export default {
         this.transitionName = "slide-down";
       else this.transitionName = "slide-up";
     },
-    showCountry(val) {
-      this.$store.dispatch("users/setShowCountry", val);
-    },
   },
   mounted() {
     document.querySelector(".route-house").style.overflow = "auto";
@@ -276,10 +275,12 @@ export default {
       next();
     });
     this.$router.afterEach((to, from) => {
-      if (!(to.meta.isUsers && from.meta.isUsers))
-      setTimeout(() => {
-        document.querySelector(".route-house").style.overflow = "auto";
-      }, 500);
+      if (!(to.meta.isUsers && from.meta.isUsers)) {
+        console.log("true");
+        setTimeout(() => {
+          document.querySelector(".route-house").style.overflow = "auto";
+        }, 500);
+      }
     });
   },
 };
@@ -401,8 +402,8 @@ button:disabled {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 999px;
 }
 
@@ -415,8 +416,8 @@ button:disabled {
   bottom: 2px;
   background-color: white;
   border-radius: 50%;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 input:checked + .slider {

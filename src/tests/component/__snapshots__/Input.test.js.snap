@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text Box should render correctly when passed user prop 1`] = `
+<div class="input-body" style="background-color: rgb(255, 255, 255); border-radius: 5px; padding: 10px;"><i class="fas fa-search" style="color: rgba(0, 0, 0, 0.62);"></i>
+  <div style="position: relative; flex-grow: 1; text-overflow: ellipsis;">
+    <div style="position: absolute; left: 16px; text-overflow: ellipsis; white-space: nowrap;"><span style="letter-spacing: -0.02px; text-wrap: nowrap; font-size: 14px; font-weight: normal; color: rgba(0, 0, 0, 0.8);">Enter text here</span></div> <input type="text" style="color: rgba(0, 0, 0, 0.87);">
+  </div>
+</div>
+`;

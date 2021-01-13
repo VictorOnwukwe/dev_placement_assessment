@@ -54,10 +54,10 @@ export default {
   },
   computed: {
     page() {
-      return this.$store.getters["users/currentPage"];
+      return this.$store.getters["currentPage"];
     },
     users() {
-      return this.$store.getters["users/allUsers"];
+      return this.$store.getters["allUsers"];
     },
   },
   watch: {
@@ -65,7 +65,7 @@ export default {
       this.updateCurrentUsers();
     },
     gender() {
-      this.$store.dispatch("users/setCurrentPage", 1);
+      this.$store.dispatch("setCurrentPage", 1);
       this.filterByGender();
       this.updateCurrentUsers();
     },

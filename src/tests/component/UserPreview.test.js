@@ -3,6 +3,7 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import UserPreview from "../../components/UserPreview";
 import { isIterable } from "core-js";
 import Router from "vue-router";
+import Vuex from "vuex";
 
 describe("User Preview Component", () => {
   let populatedUser =  {
@@ -22,7 +23,7 @@ describe("User Preview Component", () => {
 
   it("Should not render component without user prop", async () => {
     const wrapper = mount(UserPreview);
-    expect(wrapper.isEmpty()).toBe(true);
+    expect(wrapper).toBeEmpty;
   });
 
   it("Should render component when user prop is passed", () => {
@@ -30,7 +31,7 @@ describe("User Preview Component", () => {
       propsData: { user: populatedUser },
       computed: { showCountry: showCountry },
     });
-    expect(wrapper.isEmpty()).toBe(false);
+    expect(wrapper).not.toBeEmpty;
   });
 
   it("should render correctly when passed user prop", () => {
@@ -67,5 +68,51 @@ describe("User Preview Component", () => {
 
     await wrapper.find("button").trigger("click");
     expect(wrapper.vm.$route.path).toBe("/users/email");
+  });
+
+  it("should show country when state value is true", async () => {
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    const getters = {
+      showCountry: () => true
+    }
+    const store = new Vuex.Store({
+      getters
+    });
+
+    const wrapper = mount(UserPreview, {
+      store,
+      localVue,
+      propsData: {
+        user: populatedUser
+      }
+    });
+
+    let elem = wrapper.find("p.location");
+    expect(elem.text()).toContain("country");
+  });
+
+  it("should not show country when state value is false", async () => {
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    const getters = {
+      showCountry: () => false
+    }
+    const store = new Vuex.Store({
+      getters
+    });
+
+    const wrapper = mount(UserPreview, {
+      store,
+      localVue,
+      propsData: {
+        user: populatedUser
+      }
+    });
+
+    let elem = wrapper.find("p.location");
+    expect(elem.text().includes("country")).toBe(false);
   });
 });

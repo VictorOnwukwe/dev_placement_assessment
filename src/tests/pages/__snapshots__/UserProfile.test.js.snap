@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Profile Page should render correctly when passed user prop 1`] = `
+<div>
+  <!---->
+</div>
+`;
+
+exports[`User Profile Page should render correctly when passed user prop 2`] = `
+<div>
+  <div class="transition" style="display: flex; margin-top: 44px;"><img style="width: 180px; height: 180px; min-width: 180px; min-height: 180px; border-radius: 50%; border: 6px solid #75d6d1; object-fit: cover;">
+    <div style="margin-left: 28px;">
+      <h2 style="color: rgb(38, 42, 65); margin-top: 16px;">
+        undefined. firstname lastname&nbsp;<span style="font-weight: 300;">age</span></h2>
+      <p class="location" style="color: rgb(38, 42, 65); font-weight: 400; opacity: 0.69; letter-spacing: -0.09px;">
+        streetnumber streetname, city, state
+      </p> <button class="email" style="background-color: rgb(226, 227, 236); padding: 9px 14px; border-radius: 999px; align-items: center; display: block;">
+        <div style="display: flex; align-items: center;"><i class="far fa-envelope" style="font-size: 16px; margin-right: 8px; color: rgb(186, 189, 209);"></i> <span style="font-size: 14px; color: rgba(38, 42, 65, 0.52); letter-spacing: -0.09px; font-weight: 600;">email</span></div>
+      </button> <button style="background-color: rgb(247, 217, 242); font-size: 12px; padding: 9px 15px; border-radius: 999px; color: rgba(38, 42, 65, 0.7); font-weight: 700; margin-top: 16px; display: block;">
+        JOINED: registrati
+      </button>
+      <p style="color: rgba(38, 42, 65, 0.52); font-size: 14px; font-weight: 500;"><i class="fas fa-phone-alt" style="margin-right: 8px; color: rgb(186, 189, 209);"></i> <span>cell</span></p>
+      <p style="color: rgba(38, 42, 65, 0.52); font-size: 14px; font-weight: 500;"><i class="fas fa-mobile-alt" style="margin-right: 8px; margin-left: 4px; color: rgb(186, 189, 209);"></i> <span>phone</span></p>
+    </div>
+  </div>
+</div>
+`;
