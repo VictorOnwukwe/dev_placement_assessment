@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     users: [],
     currentPage: 1,
     showCountry: false,
+    search: "",
   },
   mutations: {
     setCurrentPage: (state, val) => {
@@ -26,11 +27,15 @@ const store = new Vuex.Store({
     toggleShowCountry: (state) => {
       state.showCountry = !state.showCountry;
     },
+    setSearch: (state, val) => {
+      state.search = val;
+    },
   },
   getters: {
     currentPage: (state) => state.currentPage,
     allUsers: (state) => state.users,
     showCountry: (state) => state.showCountry,
+    search: (state) => state.search,
   },
   actions: {
     async fetchUsers({ commit }) {
@@ -52,6 +57,9 @@ const store = new Vuex.Store({
     },
     toggleShowCountry({ commit }) {
       commit("toggleShowCountry");
+    },
+    setSearchValue({ commit }, val) {
+      commit("setSearch", val);
     },
   },
 });

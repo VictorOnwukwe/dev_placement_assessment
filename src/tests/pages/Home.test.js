@@ -1,10 +1,8 @@
-import { mount, createLocalVue } from "@vue/test-utils";
+import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
 import Home from "../../pages/Home";
 // import Input from "../../components/Input";
-import { isIterable } from "core-js";
 import Vuex from "vuex";
 import Router from "vue-router";
-import { template } from "babel-core";
 
 const localVue = createLocalVue();
 
@@ -56,6 +54,9 @@ describe("Home", () => {
         currentPage: () => 1,
         allUsers: () => new Array(20),
       },
+      actions: {
+        setCurrentPage({ commit }) {},
+      },
     });
     router = new Router({
       routes: allRoutes,
@@ -64,6 +65,7 @@ describe("Home", () => {
       store,
       router,
       localVue,
+      stubs: ["m-input"],
     };
   });
 
@@ -193,6 +195,9 @@ describe("Home", () => {
         it("Should be enabled when page number is less than maximum allowable page(7)", () => {
           wrapper = mount(Home, {
             ...defaultData,
+            data: () => {
+              return { maxPages: 2 };
+            },
           });
 
           expect(wrapper.find("#next-page-button").attributes("disabled")).toBe(
@@ -247,7 +252,7 @@ describe("Home", () => {
       wrapper = mount(Home, { ...defaultData, store });
       await wrapper.find("#next-page-button").trigger("click");
 
-      expect(store.getters.currentPage).toBe(5);
+      expect(store.getters["currentPage"]).toBe(5);
     });
     it("Should decrement when previous page button is clicked", async () => {
       store = new Vuex.Store({

@@ -1,6 +1,5 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import UserProfile from "../../pages/UserProfile";
-import { isIterable } from "core-js";
 import Vuex from "vuex";
 
 describe("User Profile Page", () => {

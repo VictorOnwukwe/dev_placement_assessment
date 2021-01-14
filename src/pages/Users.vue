@@ -1,22 +1,24 @@
 <template>
   <div style="position:relative;z-index:2">
-    <div
-      v-if="users.length == 0"
-      style="display:flex;justify-content:center;align-items:center;height:100%"
-    >
-      <div class="loader"></div>
-    </div>
-    <div v-else class="display">
+    <div v-if="displayUsers.length > 0" class="display">
       <preview
         v-for="user in currentUsers"
         :key="user.email"
         :user="user"
       ></preview>
     </div>
+    <div
+      v-else
+      style="display:flex;justify-content:center;align-items:center;height:100%"
+    >
+      <p v-if="fetched">No matches found...</p>
+      <div v-else class="loader"></div>
+    </div>
   </div>
 </template>
 <script>
 import UserPreview from "../components/UserPreview";
+let timeout;
 export default {
   components: {
     preview: UserPreview,
@@ -31,6 +33,7 @@ export default {
     return {
       currentUsers: [],
       displayUsers: [],
+      fetched: false,
     };
   },
   methods: {
@@ -40,16 +43,59 @@ export default {
       this.currentUsers = this.displayUsers.slice(start, end);
     },
     filterByGender() {
-      let val = this.gender;
-      if (val == "male") {
+      this.displayUsers = [];
+      this.fetched = false;
+      let gender = this.gender;
+      if (gender == "male") {
         this.displayUsers = this.users.filter((user) => user.gender == "male");
-      } else if (val == "female") {
+      } else if (gender == "female") {
         this.displayUsers = this.users.filter(
           (user) => user.gender == "female"
         );
       } else {
         this.displayUsers = this.users;
       }
+      this.updateContent();
+      setTimeout(() => {
+        this.fetched = true;
+      }, 1000);
+    },
+    searchUsers(search) {
+      this.displayUsers = [];
+      this.fetched = false;
+      let gender = this.gender;
+      if (gender == "male") {
+        this.displayUsers = this.users.filter(
+          (user) =>
+            user.gender == "male" &&
+            (user.name.first + user.name.last)
+              .toLowerCase()
+              .includes(search.toLowerCase())
+        );
+      } else if (gender == "female") {
+        this.displayUsers = this.users.filter(
+          (user) =>
+            user.gender == "female" &&
+            (user.name.first + user.name.last)
+              .toLowerCase()
+              .includes(search.toLowerCase())
+        );
+      } else {
+        this.displayUsers = this.users.filter((user) =>
+          (user.name.first + user.name.last)
+            .toLowerCase()
+            .includes(search.toLowerCase())
+        );
+      }
+      this.updateContent();
+      setTimeout(() => {
+        this.fetched = true;
+      }, 1000);
+    },
+    updateContent() {
+      this.updateCurrentUsers();
+      this.$store.dispatch("setCurrentPage", 1);
+      this.$emit("listChanged", this.displayUsers.length);
     },
   },
   computed: {
@@ -59,24 +105,29 @@ export default {
     users() {
       return this.$store.getters["allUsers"];
     },
+    search() {
+      return this.$store.getters["search"];
+    },
   },
   watch: {
     page() {
       this.updateCurrentUsers();
     },
     gender() {
-      this.$store.dispatch("setCurrentPage", 1);
       this.filterByGender();
-      this.updateCurrentUsers();
     },
     users() {
       this.filterByGender();
-      this.updateCurrentUsers();
+    },
+    search(val) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        this.searchUsers(val);
+      }, 500);
     },
   },
   mounted() {
     this.filterByGender();
-    this.updateCurrentUsers();
   },
 };
 </script>

@@ -1,6 +1,5 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import Users from "../../pages/Users";
-import { isIterable } from "core-js";
 import Vuex from "vuex";
 
 describe("Users Display Page", () => {
@@ -112,17 +111,18 @@ describe("Users Display Page", () => {
     expect(wrapper.find("div.loader").exists()).toBe(true);
   });
 
-  it("should hide circular progress when user is not an empty array", () => {
+  it("should hide circular progress when displayUsers is not an empty array", () => {
     store = new Vuex.Store({
       getters: {
         currentPage: () => 3,
       },
     });
+    // const updateCurrentUsers = jest.spyOn(Users.methods, "updateCurrentUsers");
     const wrapper = mount(Users, {
       ...defaultData,
       store,
-      computed: {
-        users: () => [""],
+      data: () => {
+        return { displayUsers: [""] };
       },
     });
 

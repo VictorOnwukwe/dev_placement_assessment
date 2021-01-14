@@ -1,7 +1,6 @@
 // import { render } from "@testing-library/vue";
 import { mount, createLocalVue } from "@vue/test-utils";
 import UserPreview from "../../components/UserPreview";
-import { isIterable } from "core-js";
 import Router from "vue-router";
 import Vuex from "vuex";
 

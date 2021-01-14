@@ -144,7 +144,11 @@
         </select>
         <div style="display:flex;align-items:center;margin-left:1em">
           <label class="switch">
-            <input id="show-country-button" type="checkbox" @input="toggleShowCountry" />
+            <input
+              id="show-country-button"
+              type="checkbox"
+              @input="toggleShowCountry"
+            />
             <span class="slider"></span>
           </label>
           <label
@@ -173,6 +177,7 @@
           <router-view
             class="router-view"
             style="position:absolute;width:100%;height:100%"
+            @listChanged="updateMaxPages"
           ></router-view>
         </transition>
       </div>
@@ -234,6 +239,7 @@ export default {
     return {
       transitionName: "",
       search: "",
+      maxPages: 1,
     };
   },
   methods: {
@@ -246,31 +252,13 @@ export default {
     toggleShowCountry() {
       this.$store.dispatch("toggleShowCountry");
     },
+    updateMaxPages(val) {
+      this.maxPages = Math.ceil(val / 3);
+    },
   },
   computed: {
-    userData() {
-      let users = this.$store.getters["allUsers"];
-      return {
-        count: users.length,
-        maleCount: users.filter((user) => user.gender == "male").length,
-        femaleCount: users.filter((user) => user.gender == "female").length,
-      };
-    },
     page() {
       return this.$store.getters["currentPage"];
-    },
-    maxPages() {
-      let route = this.$route.name;
-
-      let length;
-      if (route == "male users") {
-        length = this.userData.maleCount / 3;
-      } else if (route == "female users") {
-        length = this.userData.femaleCount / 3;
-      } else {
-        length = this.userData.count / 3;
-      }
-      return Math.ceil(length);
     },
     notList() {
       return this.$route.name == "user profile";
@@ -282,8 +270,12 @@ export default {
         this.transitionName = "slide-down";
       else this.transitionName = "slide-up";
     },
+    search(val) {
+      this.$store.dispatch("setSearchValue", val);
+    },
   },
   mounted() {
+    this.maxPages = Math.ceil(this.$store.getters["allUsers"].length / 3);
     this.$router.beforeEach((to, from, next) => {
       if (!(to.meta.isList && from.meta.isList))
         this.$refs["route-house"].style.overflow = "visible";
