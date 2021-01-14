@@ -15,7 +15,7 @@ export default new Router({
       props: {
         gender: "all",
       },
-      meta: {isUsers: true}
+      meta: {isList: true}
     },
     {
       path: "/male",
@@ -24,7 +24,7 @@ export default new Router({
       props: {
         gender: "male",
       },
-      meta: {isUsers: true}
+      meta: {isList: true}
     },
     {
         path: "/female",
@@ -33,13 +33,13 @@ export default new Router({
         props: {
           gender: "female",
         },
-        meta: {isUsers: true}
+        meta: {isList: true}
       },
     {
       path: "/users/:email",
       component: UserProfile,
       name: "user",
-      meta: {isUsers: false}
+      meta: {isList: false}
     },
   ],
 });

@@ -262,7 +262,7 @@ export default {
   },
   watch: {
     $route(to) {
-      if (to.matched.some((record) => record.meta.isUsers))
+      if (to.matched.some((record) => record.meta.isList))
         this.transitionName = "slide-down";
       else this.transitionName = "slide-up";
     },
@@ -270,13 +270,12 @@ export default {
   mounted() {
     document.querySelector(".route-house").style.overflow = "auto";
     this.$router.beforeEach((to, from, next) => {
-      if (!(to.meta.isUsers && from.meta.isUsers))
+      if (!(to.meta.isList && from.meta.isList))
         document.querySelector(".route-house").style.overflow = "visible";
       next();
     });
     this.$router.afterEach((to, from) => {
-      if (!(to.meta.isUsers && from.meta.isUsers)) {
-        console.log("true");
+      if (!(to.meta.isList && from.meta.isList)) {
         setTimeout(() => {
           document.querySelector(".route-house").style.overflow = "auto";
         }, 500);

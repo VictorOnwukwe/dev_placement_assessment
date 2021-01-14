@@ -2,7 +2,6 @@ import { mount, createLocalVue } from "@vue/test-utils";
 import UserProfile from "../../pages/UserProfile";
 import { isIterable } from "core-js";
 import Vuex from "vuex";
-import Router from "vue-router";
 
 describe("User Profile Page", () => {
   let populatedUser = {
@@ -20,7 +19,7 @@ describe("User Profile Page", () => {
     dob: { age: "age" },
     registered: { date: "registrationdate" },
   };
-  let constData;
+  let defaultData;
   const localVue = createLocalVue();
   localVue.use(Vuex);
   let store;
@@ -32,7 +31,7 @@ describe("User Profile Page", () => {
       },
     });
 
-    constData = {
+    defaultData = {
       store,
       mocks: {
         $route: { params: { email: "email" } },
@@ -42,14 +41,14 @@ describe("User Profile Page", () => {
   });
 
   it("Should not render component without user prop", async () => {
-    const wrapper = mount(UserProfile, { ...constData });
+    const wrapper = mount(UserProfile, { ...defaultData });
     expect(wrapper).toBeEmpty;
   });
 
   it("should render correctly when passed user prop", () => {
     const wrapper = mount(UserProfile, {
       computed: { showCountry: jest.fn() },
-      ...constData,
+      ...defaultData,
     });
     expect(wrapper.html()).toMatchSnapshot();
   });
@@ -57,7 +56,7 @@ describe("User Profile Page", () => {
   it("should render correctly when passed user prop", () => {
     const wrapper = mount(UserProfile, {
       computed: { showCountry: jest.fn() },
-      ...constData,
+      ...defaultData,
       data() {
         return {
           user: populatedUser,
@@ -76,7 +75,7 @@ describe("User Profile Page", () => {
     });
 
     const wrapper = mount(UserProfile, {
-      ...constData,
+      ...defaultData,
       store,
       data() {
         return {
@@ -98,7 +97,7 @@ describe("User Profile Page", () => {
     });
 
     const wrapper = mount(UserProfile, {
-      ...constData,
+      ...defaultData,
       store,
       data() {
         return {

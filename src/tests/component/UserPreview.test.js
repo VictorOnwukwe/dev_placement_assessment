@@ -18,8 +18,14 @@ describe("User Preview Component", () => {
     email: "email",
     phone: "112233",
   };
-  const showCountry = jest.fn();
-  beforeEach(() => {});
+  let defaultData;
+  beforeEach(() => {
+    defaultData = {
+      propsData: { user: populatedUser },
+      computed: { showCountry: jest.fn() },
+      stubs: ["router-link"]
+    }
+  });
 
   it("Should not render component without user prop", async () => {
     const wrapper = mount(UserPreview);
@@ -28,16 +34,14 @@ describe("User Preview Component", () => {
 
   it("Should render component when user prop is passed", () => {
     const wrapper = mount(UserPreview, {
-      propsData: { user: populatedUser },
-      computed: { showCountry: showCountry },
+      ...defaultData
     });
     expect(wrapper).not.toBeEmpty;
   });
 
   it("should render correctly when passed user prop", () => {
     const wrapper = mount(UserPreview, {
-      propsData: { user: populatedUser },
-      computed: { showCountry: showCountry },
+      ...defaultData
     });
     expect(wrapper.html()).toMatchSnapshot();
   });
@@ -54,16 +58,15 @@ describe("User Preview Component", () => {
         },
       ],
     });
+    defaultData = {
+      propsData: { user: populatedUser },
+      computed: { showCountry: jest.fn() },
+    }
 
     const wrapper = mount(UserPreview, {
       localVue,
       router,
-      propsData: {
-        user: populatedUser
-      },
-      computed: {
-        showCountry: showCountry
-      }
+      ...defaultData
     });
 
     await wrapper.find("button").trigger("click");
@@ -74,19 +77,21 @@ describe("User Preview Component", () => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
 
-    const getters = {
-      showCountry: () => true
-    }
     const store = new Vuex.Store({
-      getters
+      getters: {
+        showCountry: () => true
+      }
     });
+
+    defaultData = {
+      propsData: { user: populatedUser },
+      stubs: ["router-link"]
+    }
 
     const wrapper = mount(UserPreview, {
       store,
       localVue,
-      propsData: {
-        user: populatedUser
-      }
+      ...defaultData
     });
 
     let elem = wrapper.find("p.location");
@@ -97,19 +102,21 @@ describe("User Preview Component", () => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
 
-    const getters = {
-      showCountry: () => false
-    }
     const store = new Vuex.Store({
-      getters
+      getters: {
+        showCountry: () => false
+      }
     });
+
+    defaultData = {
+      propsData: { user: populatedUser },
+      stubs: ["router-link"]
+    }
 
     const wrapper = mount(UserPreview, {
       store,
       localVue,
-      propsData: {
-        user: populatedUser
-      }
+      ...defaultData
     });
 
     let elem = wrapper.find("p.location");
