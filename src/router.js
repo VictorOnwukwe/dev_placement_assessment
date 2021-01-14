@@ -38,7 +38,7 @@ export default new Router({
     {
       path: "/users/:email",
       component: UserProfile,
-      name: "user",
+      name: "user profile",
       meta: {isList: false}
     },
   ],

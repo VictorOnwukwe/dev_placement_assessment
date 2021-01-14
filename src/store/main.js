@@ -8,7 +8,7 @@ const store = new Vuex.Store({
   state: {
     users: [],
     currentPage: 1,
-    showCountry: false
+    showCountry: false,
   },
   mutations: {
     setCurrentPage: (state, val) => {
@@ -25,17 +25,21 @@ const store = new Vuex.Store({
     },
     toggleShowCountry: (state) => {
       state.showCountry = !state.showCountry;
-    }
+    },
   },
   getters: {
     currentPage: (state) => state.currentPage,
     allUsers: (state) => state.users,
-    showCountry: (state) => state.showCountry
+    showCountry: (state) => state.showCountry,
   },
   actions: {
     async fetchUsers({ commit }) {
-      let res = await axios.get("https://randomuser.me/api/?results=20");
-      commit("setUsers", res.data.results);
+      try {
+        let res = await axios.get("https://randomuser.me/api/?results=20");
+        commit("setUsers", res.data.results);
+      } catch (e) {
+        console.log(e);
+      }
     },
     setCurrentPage({ commit }, val) {
       commit("setCurrentPage", val);
@@ -46,9 +50,9 @@ const store = new Vuex.Store({
     decrementCurrentPage({ commit }) {
       commit("decrementCurrentPage");
     },
-    toggleShowCountry({commit}){
+    toggleShowCountry({ commit }) {
       commit("toggleShowCountry");
-    }
+    },
   },
 });
 

@@ -30,7 +30,11 @@
         <div class="nav-menu" style="display:flex">
           <div>
             <router-link class="nav" to="/" style="text-decoration:none">
-              <button class="nav-button" style="background-color:#F935A9;">
+              <button
+                class="nav-button"
+                style="background-color:#F935A9;"
+                id="all-nav-button"
+              >
                 <i class="fas fa-users"></i>
               </button>
             </router-link>
@@ -40,7 +44,11 @@
           </div>
           <div>
             <router-link to="/male" class="nav" style="text-decoration:none">
-              <button style="background-color:#30BBB5;" class="nav-button">
+              <button
+                style="background-color:#30BBB5;"
+                class="nav-button"
+                id="male-nav-button"
+              >
                 <i class="fas fa-male"></i>
               </button>
             </router-link>
@@ -50,7 +58,11 @@
           </div>
           <div>
             <router-link to="/female" class="nav" style="text-decoration:none">
-              <button style="background-color:#7946C1;" class="nav-button">
+              <button
+                style="background-color:#7946C1;position:relative"
+                class="nav-button"
+                id="female-nav-button"
+              >
                 <i class="fas fa-female"></i>
               </button>
             </router-link>
@@ -114,12 +126,12 @@
           padding="10px 16px"
           style="flex-grow:1"
           id="input-2"
+          ref="user-search"
           :disabled="notList"
           v-model="search"
         ></m-input>
         <select
           name="Country"
-          label="Country"
           class="country-select"
           style="margin-left:1em"
           :disabled="notList"
@@ -132,7 +144,7 @@
         </select>
         <div style="display:flex;align-items:center;margin-left:1em">
           <label class="switch">
-            <input type="checkbox" @input="toggleShowCountry" />
+            <input id="show-country-button" type="checkbox" @input="toggleShowCountry" />
             <span class="slider"></span>
           </label>
           <label
@@ -143,12 +155,13 @@
       </div>
       <div
         class="route-house"
+        ref="route-house"
         style="position:relative;margin-top:24px;flex-grow:1;z-index:1"
       >
         <button
           @click="$router.go(-1)"
           style="cursor:pointer;background:inherit;border:none;display:flex;position:absolute;z-index:1;left:0;top:0"
-          v-show="$route.name == 'user'"
+          v-show="notList"
         >
           <i
             class="fas fa-arrow-left"
@@ -170,7 +183,8 @@
         <div style="display:flex;justify-content:space-between">
           <button
             style="border-radius:999px;border:none;background-color:#7946C1;padding:8px 12px"
-            :disabled="$route.name == 'user'"
+            class="download-button"
+            :disabled="notList"
           >
             <div style="display:flex;align-items:center">
               <i
@@ -186,23 +200,25 @@
             <button
               style="margin-left:8px;border:none;padding:6px 12px;border-radius:6px;background-color:#E2E2EA"
               @click="previousPage"
-              :disabled="page <= 1 || $route.name == 'user'"
+              id="previous-page-button"
+              :disabled="page <= 1 || notList"
             >
               <i class="fas fa-chevron-left"></i>
             </button>
             <button
               @click="nextPage"
+              id="next-page-button"
               style="margin-left:8px;border:none;padding:6px 12px;border-radius:6px;background-color:#262A41"
-              :disabled="page >= maxPages || $route.name == 'user'"
+              :disabled="page >= maxPages || notList"
             >
               <i class="fas fa-chevron-right" style="color:white"></i>
             </button>
           </div>
         </div>
       </div>
-      <div
+      <!-- <div
         style="position:absolute;bottom:0;height:2em;left:0;width:100%;background-color:#F7F7FF;z-index:3;border-bottom-left-radius:28px;border-bottom-right-radius:28px"
-      ></div>
+      ></div> -->
     </div>
   </div>
 </template>
@@ -257,7 +273,7 @@ export default {
       return Math.ceil(length);
     },
     notList() {
-      return this.$route.name == "user";
+      return this.$route.name == "user profile";
     },
   },
   watch: {
@@ -268,16 +284,15 @@ export default {
     },
   },
   mounted() {
-    document.querySelector(".route-house").style.overflow = "auto";
     this.$router.beforeEach((to, from, next) => {
       if (!(to.meta.isList && from.meta.isList))
-        document.querySelector(".route-house").style.overflow = "visible";
+        this.$refs["route-house"].style.overflow = "visible";
       next();
     });
     this.$router.afterEach((to, from) => {
       if (!(to.meta.isList && from.meta.isList)) {
         setTimeout(() => {
-          document.querySelector(".route-house").style.overflow = "auto";
+          this.$refs["route-house"].style.overflow = "auto";
         }, 500);
       }
     });
@@ -285,6 +300,9 @@ export default {
 };
 </script>
 <style scoped>
+.route-house {
+  overflow: auto;
+}
 button {
   cursor: pointer;
 }
@@ -315,7 +333,7 @@ button:disabled {
   margin-bottom: 16px;
   transition: transform 0.5s ease;
 }
-.nav.router-link-exact-active > * {
+.nav.router-link-exact-active > button {
   cursor: default;
   transform: scale(1.2);
 }
