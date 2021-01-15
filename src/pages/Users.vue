@@ -50,13 +50,15 @@ export default {
       let end = start + 3;
       this.currentUsers = this.displayUsers.slice(start, end);
     },
-    filterByAll() {
+    filterByAll(init) {
       let matches = (user, search) => {
         let userString = `${user.location.street.number} ${
           user.location.street.name
         } ${user.location.city}, ${user.location.state}${
           this.$store.getters["showCountry"] ? " " + user.location.country : ""
-        } ${user.name.first} ${user.name.last} ${user.email}`.toLocaleLowerCase();
+        } ${user.name.first} ${user.name.last} ${
+          user.email
+        }`.toLocaleLowerCase();
 
         return userString.includes(search.trim().toLowerCase());
       };
@@ -73,13 +75,13 @@ export default {
             (user.location.country == country && user.gender == gender))
       );
       this.updateContent();
+      if (!init) this.$store.dispatch("setCurrentPage", 1);
       setTimeout(() => {
         this.fetched = true;
       }, 1000);
     },
     updateContent() {
       this.updateCurrentUsers();
-      this.$store.dispatch("setCurrentPage", 1);
       this.$emit("listChanged", this.displayUsers.length);
     },
   },
@@ -112,7 +114,7 @@ export default {
     },
   },
   mounted() {
-    this.filterByAll();
+    this.filterByAll(true);
   },
 };
 </script>

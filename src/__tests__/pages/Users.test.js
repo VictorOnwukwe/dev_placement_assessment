@@ -189,7 +189,9 @@ describe("Users Display Page", () => {
         country: "all",
         search: "",
       },
-      methods: {}
+      methods: {
+        
+      }
     });
 
     expect(wrapper.vm.$data.currentUsers).toEqual(allUsers.slice(6, 9));
