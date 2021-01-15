@@ -28,6 +28,10 @@ export default {
       type: String,
       default: "all",
     },
+    search: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -104,9 +108,6 @@ export default {
     },
     users() {
       return this.$store.getters["allUsers"];
-    },
-    search() {
-      return this.$store.getters["search"];
     },
   },
   watch: {

@@ -178,6 +178,7 @@
             class="router-view"
             style="position:absolute;width:100%;height:100%"
             @listChanged="updateMaxPages"
+            :search="search"
           ></router-view>
         </transition>
       </div>
@@ -269,9 +270,6 @@ export default {
       if (to.matched.some((record) => record.meta.isList))
         this.transitionName = "slide-down";
       else this.transitionName = "slide-up";
-    },
-    search(val) {
-      this.$store.dispatch("setSearchValue", val);
     },
   },
   mounted() {

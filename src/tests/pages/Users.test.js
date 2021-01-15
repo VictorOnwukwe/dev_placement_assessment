@@ -79,6 +79,14 @@ describe("Users Display Page", () => {
     });
   });
 
+  describe("Search", () => {
+    it("should return array of users that match keyword", async() => {
+        const wrapper = mount(Users, {...defaultData});
+
+        
+    })
+  })
+
   it("should return data according to page number", () => {
     store = new Vuex.Store({
       getters: {
@@ -117,12 +125,15 @@ describe("Users Display Page", () => {
         currentPage: () => 3,
       },
     });
-    // const updateCurrentUsers = jest.spyOn(Users.methods, "updateCurrentUsers");
     const wrapper = mount(Users, {
       ...defaultData,
       store,
       data: () => {
         return { displayUsers: [""] };
+      },
+      methods: {
+        updateCurrentUsers: jest.fn(),
+        updateContent: jest.fn(),
       },
     });
 

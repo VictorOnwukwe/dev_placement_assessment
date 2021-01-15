@@ -1,4 +1,4 @@
-import { mount, shallowMount, createLocalVue } from "@vue/test-utils";
+import { mount, createLocalVue } from "@vue/test-utils";
 import Home from "../../pages/Home";
 // import Input from "../../components/Input";
 import Vuex from "vuex";
@@ -65,7 +65,7 @@ describe("Home", () => {
       store,
       router,
       localVue,
-      stubs: ["m-input"],
+      stubs: ["router-view"],
     };
   });
 
@@ -101,7 +101,8 @@ describe("Home", () => {
           });
         });
         afterEach(() => {
-          wrapper.vm.$router.push("/");
+          if (wrapper.vm.$route.name == "user profile")
+            wrapper.vm.$router.push("/");
           wrapper.destroy();
         });
 
@@ -140,7 +141,8 @@ describe("Home", () => {
             });
           });
           afterEach(() => {
-            wrapper.vm.$router.push("/");
+            if (wrapper.vm.$route.name == "user profile")
+              wrapper.vm.$router.push("/");
             wrapper.destroy();
           });
 
@@ -229,7 +231,7 @@ describe("Home", () => {
       wrapper.destroy();
     });
     it("Should increment when next page button is clicked", async () => {
-      store = new Vuex.Store({
+      let tore = new Vuex.Store({
         state: {
           currentPage: 4,
         },
@@ -252,7 +254,7 @@ describe("Home", () => {
       wrapper = mount(Home, { ...defaultData, store });
       await wrapper.find("#next-page-button").trigger("click");
 
-      expect(store.getters["currentPage"]).toBe(5);
+      expect(store.getters.currentPage).toBe(5);
     });
     it("Should decrement when previous page button is clicked", async () => {
       store = new Vuex.Store({
