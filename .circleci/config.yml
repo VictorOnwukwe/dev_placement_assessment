@@ -33,7 +33,7 @@ jobs:
       #     root: ~/
       #     paths:
       #       - .cache/Cypress
-
+      - run: npm install
       - run:
           command: npm run test
           environment:
