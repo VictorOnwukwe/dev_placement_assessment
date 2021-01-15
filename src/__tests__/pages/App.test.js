@@ -7,7 +7,7 @@ const localVue = createLocalVue();
 
 describe("App", () => {
   localVue.use(Vuex);
-  const allUsers = Array(20)
+  const mockAllUsers = Array(20)
     .fill()
     .map((v, i) => {
       return {
@@ -27,7 +27,7 @@ describe("App", () => {
 
   test("Should fetch user from api endpoint on created", async () => {
     jest.mock("axios", () => ({
-      get: jest.fn(() => Promise.resolve(allUsers)),
+      get: jest.fn(() => Promise.resolve(mockAllUsers)),
     }));
     let store = new Vuex.Store({
       state: {
@@ -45,6 +45,7 @@ describe("App", () => {
         async fetchUsers({ commit }) {
           try {
             let res = await axios.get("https://randomuser.me/api/?results=20");
+            console.log("called");
             commit("setUsers", res.data.results);
           } catch (e) {
             console.log(e);

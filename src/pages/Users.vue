@@ -56,7 +56,7 @@ export default {
           user.location.street.name
         } ${user.location.city}, ${user.location.state}${
           this.$store.getters["showCountry"] ? " " + user.location.country : ""
-        } ${user.name.first} ${user.name.last}`.toLocaleLowerCase();
+        } ${user.name.first} ${user.name.last} ${user.email}`.toLocaleLowerCase();
 
         return userString.includes(search.trim().toLowerCase());
       };

@@ -13,15 +13,13 @@ describe("Users Display Page", () => {
           street: { number: "1", name: "name" },
           city: "city",
           state: "state",
-          country: "country",
+          country: i % 4 == 0 ? "Nigeria" : "other",
         },
         email: "email" + i,
         phone: "112233",
         gender: i % 3 == 0 ? "male" : "female",
       };
     });
-  let maleUsers = allUsers.filter((user) => user.gender == "male");
-  let femaleUsers = allUsers.filter((user) => user.gender == "female");
   let defaultData;
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -45,11 +43,27 @@ describe("Users Display Page", () => {
   });
 
   describe("Sort By Gender", () => {
+    let wrapper, store;
+    let maleUsers = allUsers.filter((user) => user.gender == "male");
+    let femaleUsers = allUsers.filter((user) => user.gender == "female");
+    beforeEach(() => {
+      store = new Vuex.Store({
+        getters: {
+          allUsers: () => allUsers,
+        },
+      });
+      defaultData = { ...defaultData, store };
+    });
+    afterEach(() => {
+      wrapper.destroy();
+    });
     it("should return populate users with gender neutral array when gender is 'all'", () => {
-      const wrapper = mount(Users, {
+      wrapper = mount(Users, {
         ...defaultData,
         propsData: {
           gender: "all",
+          country: "all",
+          search: "",
         },
       });
 
@@ -57,10 +71,12 @@ describe("Users Display Page", () => {
     });
 
     it("should populate display users with male gender array when gender is 'male'", () => {
-      const wrapper = mount(Users, {
+      wrapper = mount(Users, {
         ...defaultData,
         propsData: {
           gender: "male",
+          country: "all",
+          search: "",
         },
       });
 
@@ -68,10 +84,12 @@ describe("Users Display Page", () => {
     });
 
     it("should populate display users with female gender array when gender is 'female'", () => {
-      const wrapper = mount(Users, {
+      wrapper = mount(Users, {
         ...defaultData,
         propsData: {
           gender: "female",
+          country: "all",
+          search: "",
         },
       });
 
@@ -79,12 +97,75 @@ describe("Users Display Page", () => {
     });
   });
 
-  describe("Search", () => {
-    it("should return array of users that match keyword", async () => {
-      const wrapper = mount(Users, { ...defaultData });
+  describe("Sort By Country", () => {
+    let wrapper, store;
+    let nigerianUsers = allUsers.filter((u) => u.location.country == "Nigeria");
+    afterEach(() => {
+      wrapper.destroy();
+    });
+    it("should populate displayUsers with users from a specific country", () => {
+      wrapper = mount(Users, {
+        ...defaultData,
+        propsData: {
+          gender: "all",
+          country: "Nigeria",
+          search: "",
+        },
+      });
 
-      wrapper.setData({search: "1"});
-      expect(wrapper.vm.$data.displayUsers.length).toBe(12);
+      expect(wrapper.vm.$data.displayUsers).toEqual(nigerianUsers);
+    });
+  });
+
+  describe("Search", () => {
+    let matches = (user, search, showCountry) => {
+      let userString = `${user.location.street.number} ${
+        user.location.street.name
+      } ${user.location.city}, ${user.location.state}${
+        showCountry ? " " + user.location.country : ""
+      } ${user.name.first} ${user.name.last} ${user.email}`.toLocaleLowerCase();
+
+      return userString.includes(search.trim().toLowerCase());
+    };
+    let searchResults;
+
+    it("should populate displayUsers with users that match keyword when country is shown", async () => {
+      searchResults = allUsers.filter((user) => matches(user, "i", true));
+      const wrapper = mount(Users, {
+        ...defaultData,
+        propsData: {
+          gender: "all",
+          country: "all",
+          search: "i",
+        },
+        store: new Vuex.Store({
+          getters: {
+            showCountry: () => true,
+            allUsers: () => allUsers,
+          },
+        }),
+      });
+
+      expect(wrapper.vm.$data.displayUsers).toEqual(searchResults);
+    });
+    it("should populate displayUsers with users that match keyword when country is hidden", async () => {
+      searchResults = allUsers.filter((user) => matches(user, "i", false));
+      const wrapper = mount(Users, {
+        ...defaultData,
+        propsData: {
+          gender: "all",
+          country: "all",
+          search: "i",
+        },
+        store: new Vuex.Store({
+          getters: {
+            showCountry: () => false,
+            allUsers: () => allUsers,
+          },
+        }),
+      });
+
+      expect(wrapper.vm.$data.displayUsers).toEqual(searchResults);
     });
   });
 
@@ -98,46 +179,55 @@ describe("Users Display Page", () => {
     const wrapper = mount(Users, {
       ...defaultData,
       store,
+      propsData: {
+        gender: "all",
+        country: "all",
+        search: "",
+      },
     });
 
     expect(wrapper.vm.$data.currentUsers).toEqual(allUsers.slice(6, 9));
   });
 
-  it("should show circular progress while users are an empty array", () => {
-    store = new Vuex.Store({
-      getters: {
-        currentPage: () => 3,
-      },
-    });
-    const wrapper = mount(Users, {
-      ...defaultData,
-      store,
-      computed: {
-        users: () => [],
-      },
-    });
+  // it("should show circular progress while displayUsers is empty and fetched is false", () => {
+  //   store = new Vuex.Store({
+  //     getters: {
+  //       currentPage: () => 3,
+  //       allUsers: () => []
+  //     },
+  //   });
+  //   const wrapper = mount(Users, {
+  //     ...defaultData,
+  //     store,
+  //     data: () => {
+  //       return {fetched: false}
+  //     }
+  //   });
 
-    expect(wrapper.find("div.loader").exists()).toBe(true);
-  });
+  //   expect(wrapper.find("div.loader").exists()).toBe(true);
+  // });
 
-  it("should hide circular progress when displayUsers is not an empty array", () => {
-    store = new Vuex.Store({
-      getters: {
-        currentPage: () => 3,
-      },
-    });
-    const wrapper = mount(Users, {
-      ...defaultData,
-      store,
-      data: () => {
-        return { displayUsers: [""] };
-      },
-      methods: {
-        updateCurrentUsers: jest.fn(),
-        updateContent: jest.fn(),
-      },
-    });
-
-    expect(wrapper.find("div.loader").exists()).toBe(false);
-  });
+  // describe("should hide circular progress", () => {
+    
+  //   it("when displayUsers is not an empty array", () => {
+  //     store = new Vuex.Store({
+  //       getters: {
+  //         currentPage: () => 3,
+  //         allUsers: () => allUsers
+  //       },
+  //     });
+  //     const wrapper = mount(Users, {
+  //       ...defaultData,
+  //       store,
+  //       data: () => {
+  //         return {fetched: false}
+  //       },
+  //       computed: {
+  //         users: () => allUsers
+  //       }
+  //     });
+  
+  //     expect(wrapper.find("div.loader").element.style.display).toBe("none");
+  //   });
+  // })
 });

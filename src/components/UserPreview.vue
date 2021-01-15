@@ -6,12 +6,12 @@
     <img :src="user.picture.medium" style="margin:0 auto" />
     <div style="flex-grow:1;padding:0 20px;">
       <p
-        style="font-weight:bold;line-height:1;font-size:14px;color:#262A41;margin-top:0"
+        style="font-weight:bold;line-height:1.1;font-size:14px;color:#262A41;margin-top:0"
       >
         {{ `${user.name.first} ${user.name.last}` }}
       </p>
       <p
-        style="color:#262A41;font-size:12px;font-style:italic;line-height:1;font-weight:600;opacity:0.69"
+        style="color:#262A41;font-size:12px;font-style:italic;line-height:1.1;font-weight:600;opacity:0.69"
         class="location"
       >
         {{
@@ -22,7 +22,7 @@
           }`
         }}
       </p>
-      <div style="line-height:1;display:flex;flex-wrap:wrap;">
+      <div style="line-height:1.1;display:flex;flex-wrap:wrap;">
         <div style="margin-right:16px">
           <i
             class="far fa-envelope"

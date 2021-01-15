@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "jest",
-    "clear_jest": "jest --clearCache"
+    "clear_jest": "jest --clearCache",
+    "test:coverage": "npm test -- --coverage"
   },
   "jest": {
     "moduleFileExtensions": [
