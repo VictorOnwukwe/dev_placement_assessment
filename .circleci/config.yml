@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/app
   docker:
-    - image: circleci/node:10.15.3-stretch
+    - image: circleci/node:12.0.0-stretch
   environment:
     TZ: "Asia/Yekaterinburg"
 
@@ -22,17 +22,17 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - cache-
 
-      # - save_cache:
-      #     key: cache-{{ .Branch }}-{{ checksum "package.json" }}
-      #     paths:
-      #       - node_modules
-      #       - ~/.npm
-      #       - ~/.cache
+      - save_cache:
+          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
 
-      # - persist_to_workspace:
-      #     root: ~/
-      #     paths:
-      #       - .cache/Cypress
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
       - run: npm install
       - run:
           command: npm run test
