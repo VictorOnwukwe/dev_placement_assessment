@@ -22,8 +22,6 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - cache-
 
-      - run: npm ci
-
       - save_cache:
           key: cache-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
