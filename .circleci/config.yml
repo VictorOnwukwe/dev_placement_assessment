@@ -1,0 +1,50 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:12.0.0-stretch
+  environment:
+    TZ: "Asia/Yekaterinburg"
+
+version: 2.1
+
+jobs:
+  unit_tests:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      # - restore_cache:
+      #     keys:
+      #       - cache-{{ .Branch }}-{{ checksum "package.json" }}
+      #       - cache-
+
+      - save_cache:
+          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - .cache/Cypress
+      - run: npm install
+      - run:
+          command: npm run test
+          environment:
+            JEST_JUNIT_OUTPUT: "test-reports/jest-junit.xml"
+
+      - store_test_results:
+          path: test-reports
+
+      - store_artifacts:
+          path: test-reports
+
+
+workflows:
+  version: 2
+  test_build_app:
+    jobs:
+      - unit_tests
