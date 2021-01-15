@@ -22,12 +22,12 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - cache-
 
-      - save_cache:
-          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
+      # - save_cache:
+      #     key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+      #     paths:
+      #       - node_modules
+      #       - ~/.npm
+      #       - ~/.cache
 
       # - persist_to_workspace:
       #     root: ~/
