@@ -29,10 +29,10 @@ jobs:
             - ~/.npm
             - ~/.cache
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache/Cypress
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - .cache/Cypress
 
       - run:
           command: npm run test
