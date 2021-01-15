@@ -132,15 +132,19 @@
         ></m-input>
         <select
           name="Country"
+          aria-placeholder="Country"
           class="country-select"
           style="margin-left:1em"
+          v-model="country"
           :disabled="notList"
         >
-          <option>Country</option>
-          <option>good</option>
-          <option>great</option>
-          <option>nice</option>
-          <option>eh</option>
+          <option value="all" selected>Country</option>
+          <option
+            v-for="country in countries"
+            :key="country"
+            :value="country"
+            >{{ country }}</option
+          >
         </select>
         <div style="display:flex;align-items:center;margin-left:1em">
           <label class="switch">
@@ -179,6 +183,7 @@
             style="position:absolute;width:100%;height:100%"
             @listChanged="updateMaxPages"
             :search="search"
+            :country="country"
           ></router-view>
         </transition>
       </div>
@@ -241,6 +246,7 @@ export default {
       transitionName: "",
       search: "",
       maxPages: 1,
+      country: "all",
     };
   },
   methods: {
@@ -263,6 +269,9 @@ export default {
     },
     notList() {
       return this.$route.name == "user profile";
+    },
+    countries() {
+      return this.$store.getters["countries"];
     },
   },
   watch: {

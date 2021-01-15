@@ -32,6 +32,10 @@ export default {
       type: String,
       default: "",
     },
+    country: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -46,51 +50,28 @@ export default {
       let end = start + 3;
       this.currentUsers = this.displayUsers.slice(start, end);
     },
-    filterByGender() {
+    filterByAll() {
+      let matches = (user, search) => {
+        let userString = `${user.location.street.number} ${
+          user.location.street.name
+        } ${user.location.city}, ${user.location.state}${
+          this.$store.getters["showCountry"] ? " " + user.location.country : ""
+        } ${user.name.first} ${user.name.last}`.toLocaleLowerCase();
+
+        return userString.includes(search.trim().toLowerCase());
+      };
       this.displayUsers = [];
       this.fetched = false;
+      let country = this.country;
       let gender = this.gender;
-      if (gender == "male") {
-        this.displayUsers = this.users.filter((user) => user.gender == "male");
-      } else if (gender == "female") {
-        this.displayUsers = this.users.filter(
-          (user) => user.gender == "female"
-        );
-      } else {
-        this.displayUsers = this.users;
-      }
-      this.updateContent();
-      setTimeout(() => {
-        this.fetched = true;
-      }, 1000);
-    },
-    searchUsers(search) {
-      this.displayUsers = [];
-      this.fetched = false;
-      let gender = this.gender;
-      if (gender == "male") {
-        this.displayUsers = this.users.filter(
-          (user) =>
-            user.gender == "male" &&
-            (user.name.first + user.name.last)
-              .toLowerCase()
-              .includes(search.toLowerCase())
-        );
-      } else if (gender == "female") {
-        this.displayUsers = this.users.filter(
-          (user) =>
-            user.gender == "female" &&
-            (user.name.first + user.name.last)
-              .toLowerCase()
-              .includes(search.toLowerCase())
-        );
-      } else {
-        this.displayUsers = this.users.filter((user) =>
-          (user.name.first + user.name.last)
-            .toLowerCase()
-            .includes(search.toLowerCase())
-        );
-      }
+      this.displayUsers = this.users.filter(
+        (user) =>
+          matches(user, this.search) &&
+          ((gender == "all" && country == "all") ||
+            (gender == "all" && user.location.country == country) ||
+            (country == "all" && user.gender == gender) ||
+            (user.location.country == country && user.gender == gender))
+      );
       this.updateContent();
       setTimeout(() => {
         this.fetched = true;
@@ -115,20 +96,23 @@ export default {
       this.updateCurrentUsers();
     },
     gender() {
-      this.filterByGender();
+      this.filterByAll();
     },
     users() {
-      this.filterByGender();
+      this.filterByAll();
     },
-    search(val) {
+    search() {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        this.searchUsers(val);
+        this.filterByAll();
       }, 500);
+    },
+    country() {
+      this.filterByAll();
     },
   },
   mounted() {
-    this.filterByGender();
+    this.filterByAll();
   },
 };
 </script>
