@@ -1,14 +1,55 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: cypress/browsers:chrome69
+  environment:
+    TZ: "Asia/Yekaterinburg"
+
 version: 2.1
-orbs:
-  node: circleci/node@1.1
+
 jobs:
-  build:
-    executor:
-      name: node/default
-      tag: '10.4'
+  unit_tests:
+    <<: *defaults
+
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-      - run: npm run test
+
+      # find compatible cache from previous build,
+      # it should have same dependencies installed from package.json checksum
+      - restore_cache:
+          keys:
+            - cache-{{ .Branch }}-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - cache-
+
+      - run: npm ci
+
+      - save_cache:
+          key: cache-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache/Cypress
+
+      - run:
+          command: npm run test
+          environment:
+            JEST_JUNIT_OUTPUT: "test-reports/jest-junit.xml"
+
+      - store_test_results:
+          path: test-reports
+
+      - store_artifacts:
+          path: test-reports
+
+
+workflows:
+  version: 2
+  test_build_app:
+    jobs:
+      - unit_tests
