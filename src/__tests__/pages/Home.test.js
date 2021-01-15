@@ -226,18 +226,18 @@ describe("Home", () => {
     });
   });
   describe("Page Count", () => {
-    let wrapper;
-    afterEach(() => {
-      wrapper.destroy();
-    });
-    it("Should increment when next page button is clicked", async () => {
-      let tore = new Vuex.Store({
+    let wrapper, store;
+    beforeEach(() => {
+      store = new Vuex.Store({
         state: {
           currentPage: 4,
         },
         mutations: {
           incrementCurrentPage: (state) => {
             state.currentPage++;
+          },
+          decrementCurrentPage: (state) => {
+            state.currentPage--;
           },
         },
         getters: {
@@ -248,35 +248,23 @@ describe("Home", () => {
           incrementCurrentPage({ commit }) {
             commit("incrementCurrentPage");
           },
-        },
-      });
-
-      wrapper = mount(Home, { ...defaultData, store });
-      await wrapper.find("#next-page-button").trigger("click");
-
-      expect(store.getters.currentPage).toBe(5);
-    });
-    it("Should decrement when previous page button is clicked", async () => {
-      store = new Vuex.Store({
-        state: {
-          currentPage: 4,
-        },
-        mutations: {
-          decrementCurrentPage: (state) => {
-            state.currentPage--;
-          },
-        },
-        getters: {
-          currentPage: (state) => state.currentPage,
-          allUsers: () => new Array(20),
-        },
-        actions: {
           decrementCurrentPage({ commit }) {
             commit("decrementCurrentPage");
           },
         },
       });
+
       wrapper = mount(Home, { ...defaultData, store });
+    });
+    afterEach(() => {
+      wrapper.destroy();
+    });
+    it("Should increment when next page button is clicked", async () => {
+      await wrapper.find("#next-page-button").trigger("click");
+
+      expect(store.getters.currentPage).toBe(5);
+    });
+    it("Should decrement when previous page button is clicked", async () => {
       await wrapper.find("#previous-page-button").trigger("click");
 
       expect(store.getters.currentPage).toBe(3);

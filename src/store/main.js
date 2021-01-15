@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     users: [],
     currentPage: 1,
     showCountry: false,
+    countries: [],
   },
   mutations: {
     setCurrentPage: (state, val) => {
@@ -26,17 +27,32 @@ const store = new Vuex.Store({
     toggleShowCountry: (state) => {
       state.showCountry = !state.showCountry;
     },
+    setCountries: (state, val) => {
+      state.countries = val;
+    },
   },
   getters: {
     currentPage: (state) => state.currentPage,
     allUsers: (state) => state.users,
     showCountry: (state) => state.showCountry,
+    countries: (state) => state.countries,
   },
   actions: {
     async fetchUsers({ commit }) {
       try {
         let res = await axios.get("https://randomuser.me/api/?results=20");
-        commit("setUsers", res.data.results);
+        let users = res.data.results;
+        commit("setUsers", users);
+        let countries = users.map((user) => user.location.country);
+        let filtered = [];
+        countries = countries.filter((c) => {
+          if (filtered.includes(c)) return false;
+
+          filtered.push(c);
+          return true;
+        });
+
+        commit("setCountries", countries);
       } catch (e) {
         console.log(e);
       }

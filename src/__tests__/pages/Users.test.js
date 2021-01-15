@@ -80,12 +80,13 @@ describe("Users Display Page", () => {
   });
 
   describe("Search", () => {
-    it("should return array of users that match keyword", async() => {
-        const wrapper = mount(Users, {...defaultData});
+    it("should return array of users that match keyword", async () => {
+      const wrapper = mount(Users, { ...defaultData });
 
-        
-    })
-  })
+      wrapper.setData({search: "1"});
+      expect(wrapper.vm.$data.displayUsers.length).toBe(12);
+    });
+  });
 
   it("should return data according to page number", () => {
     store = new Vuex.Store({
