@@ -45,7 +45,7 @@
           <div>
             <router-link to="/male" class="nav" style="text-decoration:none">
               <button
-                style="background-color:#30BBB5;"
+                style="background-color:var(--accent);"
                 class="nav-button"
                 id="male-nav-button"
               >
@@ -79,7 +79,7 @@
     >
       <div>
         <h2
-          style="font-weight:bolder;color: #262A41; line-height:0
+          style="font-weight:bolder;color: var(--primary); line-height:0
       margin-bottom:0;padding:0 4px;position:absolute;transition:opacity 0.5s ease"
           class="route-display"
           :style="{ opacity: $route.name == 'all users' ? '1' : '0' }"
@@ -87,7 +87,7 @@
           All Users
         </h2>
         <h2
-          style="font-weight:bolder;color: #262A41; line-height:0
+          style="font-weight:bolder;color: var(--primary); line-height:0
       margin-bottom:0;padding:0 4px;position:absolute;transition:opacity 0.5s ease"
           class="route-display"
           :style="{ opacity: $route.name == 'male users' ? '1' : '0' }"
@@ -95,7 +95,7 @@
           Male Users
         </h2>
         <h2
-          style="font-weight:bolder;color: #262A41; line-height:0
+          style="font-weight:bolder;color: var(--primary); line-height:0
       margin-bottom:0;padding:0 4px;position:absolute;transition:opacity 0.5s ease"
           class="route-display"
           :style="{ opacity: $route.name == 'female users' ? '1' : '0' }"
@@ -103,14 +103,16 @@
           Female Users
         </h2>
         <h2
-          style="font-weight:bolder;color: #262A41; line-height:0
+          style="font-weight:bolder;color: var(--primary); line-height:0
       margin-bottom:0;padding:0 4px;position:absolute;transition:opacity 0.5s ease"
-          :style="{ opacity: $route.name == 'user' ? '1' : '0' }"
+          :style="{ opacity: $route.name == 'user profile' ? '1' : '0' }"
           class="route-display"
         >
           User List
         </h2>
-        <p style="color:#262A41;font-size:12px;padding:0 4px;margin-top:44px">
+        <p
+          style="color:var(--primary);font-size:12px;padding:0 4px;margin-top:44px"
+        >
           Filter by
         </p>
       </div>
@@ -120,7 +122,7 @@
           background-color="#E2E3EC"
           color="rgba(0,0,0,.87)"
           radius="999px"
-          placeholder-color="rgba(38, 42, 65,.52)"
+          placeholder-color="var(--text-hint)"
           placeholder-weight="500"
           placeholder="Find in list"
           padding="10px 16px"
@@ -173,9 +175,9 @@
         >
           <i
             class="fas fa-arrow-left"
-            style="color:#30BBB5;margin-right:10px;font-size:18px;opacity:.61"
+            style="color:var(--accent);margin-right:10px;font-size:18px;opacity:.61"
           ></i>
-          <span style="color:#262A41;opacity:.52;font-weight:600">RESULTS</span>
+          <span style="color:var(--text-hint);font-weight:600">RESULTS</span>
         </button>
         <transition :name="transitionName">
           <router-view
@@ -219,7 +221,7 @@
             <button
               @click="nextPage"
               id="next-page-button"
-              style="margin-left:8px;border:none;padding:6px 12px;border-radius:6px;background-color:#262A41"
+              style="margin-left:8px;border:none;padding:6px 12px;border-radius:6px;background-color:var(--primary)"
               :disabled="page >= maxPages || notList"
             >
               <i class="fas fa-chevron-right" style="color:white"></i>
@@ -227,9 +229,6 @@
           </div>
         </div>
       </div>
-      <!-- <div
-        style="position:absolute;bottom:0;height:2em;left:0;width:100%;background-color:#F7F7FF;z-index:3;border-bottom-left-radius:28px;border-bottom-right-radius:28px"
-      ></div> -->
     </div>
   </div>
 </template>
@@ -363,11 +362,12 @@ button:disabled {
   -moz-appearance: none;
   -webkit-appearance: none;
   display: block;
-  padding: 0.6em 1.4em 0.5em 1em;
+  padding: 0.6em 2em 0.5em 1em;
   width: 100%;
   max-width: 120px;
   line-height: 1.3;
   cursor: pointer;
+  text-overflow: ellipsis;
 }
 .country-select:disabled {
   cursor: default;

@@ -19,11 +19,12 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 :root {
-  --accent: #30BBB5;
-  --primary: #262A41;
-  --text-secondary: rgba(38, 42, 65,.7);
-  --text-hint: rgba(38, 42, 65,.52);
-  --icon-primary: #BABDD1;
+  --accent: rgb(48, 187, 181);
+  --primary: rgb(38, 42, 65);
+  --text-secondary: rgba(38, 42, 65, 0.702);
+  --text-hint: #262a4185;
+  --icon-primary: rgb(186, 189, 209);
+  --image-border: rgb(117, 214, 209);
 
   font-size: 0.9em !important;
 }

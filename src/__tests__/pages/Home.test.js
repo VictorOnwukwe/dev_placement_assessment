@@ -262,12 +262,12 @@ describe("Home", () => {
     it("Should increment when next page button is clicked", async () => {
       await wrapper.find("#next-page-button").trigger("click");
 
-      expect(store.getters.currentPage).toBe(5);
+      expect(store.getters["currentPage"]).toBe(5);
     });
     it("Should decrement when previous page button is clicked", async () => {
       await wrapper.find("#previous-page-button").trigger("click");
 
-      expect(store.getters.currentPage).toBe(3);
+      expect(store.getters["currentPage"]).toBe(3);
     });
   });
   describe("ShowCountry", () => {
@@ -296,7 +296,11 @@ describe("Home", () => {
       wrapper = mount(Home, { ...defaultData, store });
       await wrapper.find("#show-country-button").trigger("click");
 
-      expect(store.getters.showCountry).toBe(true);
+      expect(store.getters["showCountry"]).toBe(true);
     });
+  });
+  it("should render correctly when passed complete data", () => {
+    const wrapper = mount(Home, {...defaultData});
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

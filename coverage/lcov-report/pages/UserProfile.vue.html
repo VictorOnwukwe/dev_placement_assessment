@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/UserPreview.vue</title>
+    <title>Code coverage report for pages/UserProfile.vue</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> UserPreview.vue</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">pages</a> UserProfile.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -135,7 +135,22 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,6 +220,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,81 +240,94 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;div
-    style="display:flex;background-color:#FCFCFF;padding:26px 20px;border-radius:18px;align-items:center;flex-wrap:wrap"
-    v-if="user"
-  &gt;
-    &lt;img :src="user.picture.medium" style="margin:0 auto" /&gt;
-    &lt;div style="flex-grow:1;padding:0 20px;"&gt;
-      &lt;p
-        style="font-weight:bold;line-height:1.1;font-size:14px;color:#262A41;margin-top:0"
-      &gt;
-        {{ `${user.name.first} ${user.name.last}` }}
-      &lt;/p&gt;
-      &lt;p
-        style="color:#262A41;font-size:12px;font-style:italic;line-height:1.1;font-weight:600;opacity:0.69"
-        class="location"
-      &gt;
-        {{
-          `${user.location.street.number} ${user.location.street.name}, ${
-            user.location.city
-          }, ${user.location.state}${
-            showCountry ? ", " + user.location.country : ""
-          }`
-        }}
-      &lt;/p&gt;
-      &lt;div style="line-height:1.1;display:flex;flex-wrap:wrap;"&gt;
-        &lt;div style="margin-right:16px"&gt;
+  &lt;div&gt;
+    &lt;div class="transition" style="display:flex;margin-top:44px" v-if="user"&gt;
+      &lt;img
+        :src="user.picture.large"
+        style="width:180px;height:180px;min-width:180px;min-height:180px;border-radius:50%;border:6px solid var(--image-border);object-fit:cover"
+      /&gt;
+      &lt;div style="margin-left:28px"&gt;
+        &lt;h2 style="color:var(--primary);margin-top:16px"&gt;
+          {{
+            `${user.name.title}. ${user.name.first} ${user.name.last}`
+          }}&amp;nbsp;&lt;span style="font-weight:300"&gt;{{ user.dob.age }}&lt;/span&gt;
+        &lt;/h2&gt;
+        &lt;p
+          style="color:var(--text-secondary);font-weight:400;letter-spacing: -0.09px;"
+          class="location"
+        &gt;
+          {{
+            `${user.location.street.number} ${user.location.street.name}, ${
+              user.location.city
+            }, ${user.location.state}${
+              showCountry ? ", " + user.location.country : ""
+            }`
+          }}
+        &lt;/p&gt;
+        &lt;button
+          class="email"
+          style="background-color:#E2E3EC;padding:9px 14px;border-radius:999px;align-items:center;display:block"
+        &gt;
+          &lt;div style="display:flex;align-items:center"&gt;
+            &lt;i
+              class="far fa-envelope"
+              style="font-size:16px;margin-right:8px;color:var(--icon-primary)"
+            &gt;&lt;/i&gt;
+            &lt;span
+              style="font-size:14px;color:var(--text-hint);letter-spacing: -0.09px;font-weight:600"
+              &gt;{{ user.email }}&lt;/span
+            &gt;
+          &lt;/div&gt;
+        &lt;/button&gt;
+        &lt;button
+          style="background-color:#F7D9F2;font-size:12px;padding:9px 15px;border-radius:999px;color: var(--text-secondary);font-weight:700;margin-top:16px;display:block"
+        &gt;
+          JOINED: {{ user.registered.date.slice(0, 10) }}
+        &lt;/button&gt;
+        &lt;p style="color: var(--text-hint);font-size:14px;font-weight:500"&gt;
           &lt;i
-            class="far fa-envelope"
-            style="color:#BABDD1;font-size:15px;position:relative;top:2px"
-          &gt;&lt;/i
-          &gt;&amp;nbsp;
-          &lt;span style="color:#262A41;opacity:0.52;font-size:13px;"&gt;{{
-            user.email
-          }}&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;i class="fas fa-phone-alt" style="color:#BABDD1;font-size:12px"&gt;&lt;/i
-          &gt;&amp;nbsp;
-          &lt;span
-            style="color:#262A41;opacity:0.52;font-size:12px;font-weight:600"
-            &gt;{{ user.phone }}&lt;/span
-          &gt;
-        &lt;/div&gt;
+            class="fas fa-phone-alt"
+            style="margin-right:8px;color:var(--icon-primary)"
+          &gt;&lt;/i&gt;
+          &lt;span&gt;{{ user.cell }}&lt;/span&gt;
+        &lt;/p&gt;
+        &lt;p style="color: var(--text-hint);font-size:14px;font-weight:500"&gt;
+          &lt;i
+            class="fas fa-mobile-alt"
+            style="margin-right:8px;margin-left:4px;color:var(--icon-primary)"
+          &gt;&lt;/i&gt;
+          &lt;span&gt;{{ user.phone }}&lt;/span&gt;
+        &lt;/p&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;router-link
-      :to="`/users/${user.email}`"
-      style="margin-top:auto;margin-bottom:-8px;margin-left:auto"
-    &gt;
-      &lt;button
-        class="route-button"
-        style="background-color:#30bbb5;border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px #30BBB574;cursor:pointer"
-      &gt;
-        &lt;i class="fas fa-arrow-right" style="color:white;"&gt;&lt;/i&gt;&lt;/button
-    &gt;&lt;/router-link&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 &lt;script&gt;
 export default {
-  props: {
-    user: Object,
+  data() {
+    return {
+      user: null,
+    };
   },
   computed: {
     showCountry() {
       return this.$store.getters["showCountry"];
     },
   },
+  mounted() {
+    this.user = this.$store.getters["allUsers"].find(
+      (user) =&gt; user.email == this.$route.params.email
+    );
+  },
 };
 &lt;/script&gt;
 &lt;style scoped&gt;
-img {
-  border-radius: 50%;
-  border: 5px solid #75d6d1;
-  width: 65px;
-  height: 65px;
-  object-fit: cover;
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
 }
 &lt;/style&gt;
 &nbsp;</pre></td></tr></table></pre>
@@ -298,17 +337,17 @@ img {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 15 2021 10:29:40 GMT+0100 (West Africa Standard Time)
+                at Fri Jan 15 2021 12:41:00 GMT+0100 (West Africa Standard Time)
             </div>
         </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

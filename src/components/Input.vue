@@ -10,10 +10,10 @@
     }"
   >
     <i :class="icon" :style="{ color: iconColor }"></i>
-    <div style="position:relative;flex-grow:1;text-overflow:ellipsis;">
-      <div style="position:absolute;left:16px;text-overflow:ellipsis;white-space:nowrap">
+    <div style="position:relative;flex-grow:1;padding-right:1.2em;overflow:hidden;text-overflow:ellipsis">
+      <div style="position:absolute;left:16px;text-overflow:ellipsis">
       <span
-        style="letter-spacing: -0.02px;text-wrap:nowrap"
+        style="letter-spacing: -0.02px;white-space:nowrap"
         :style="{
           fontSize: placeholderSize,
           fontWeight: placeholderWeight,
@@ -113,6 +113,9 @@ input {
   cursor: text;
   position:relative;
   overflow:hidden;
+}
+.input-body *{
+  text-overflow:ellipsis !important;
 }
 .input-body.disabled {
   cursor: default;

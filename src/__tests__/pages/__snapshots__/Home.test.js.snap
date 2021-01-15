@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home should render correctly when passed complete data 1`] = `
+<div class="main">
+  <div style="width: 50%; padding: 2em 3em; display: flex;">
+    <div style="margin: auto; max-width: 450px; width: 100%;">
+      <h1 style="color: white; line-height: 1;"><span style="font-weight: 200; font-size: 44px; position: relative; top: 2px;">Hello, </span><span style="font-weight: 600;">Emerald</span></h1>
+      <p style="color: rgba(255, 255, 255, 0.66); font-weight: 200; font-size: 14px; margin-bottom: 32px;">
+        Welcome to your dashboard, kindly sort through the user base
+      </p>
+      <div class="input-body" style="background-color: rgb(60, 63, 84); border-radius: 16px; padding: 15px 20px; margin-bottom: 48px;"><i class="fas fa-search" style="color: white;"></i>
+        <div style="position: relative; flex-grow: 1; padding-right: 1.2em; overflow: hidden; text-overflow: ellipsis;">
+          <div style="position: absolute; left: 16px; text-overflow: ellipsis;"><span style="letter-spacing: -0.02px; white-space: nowrap; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, 0.7);">Find a user</span></div> <input id="input1" type="text" style="color: rgba(255, 255, 255, 0.87);">
+        </div>
+      </div>
+      <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 32px;">
+        Show Users
+      </p>
+      <div class="nav-menu" style="display: flex;">
+        <div><a href="#/" aria-current="page" class="nav router-link-exact-active router-link-active" style="text-decoration: none;"><button id="all-nav-button" class="nav-button" style="background-color: rgb(249, 53, 169);"><i class="fas fa-users"></i></button></a> <span style="color: rgba(255, 255, 255, 0.7); font-size: 12px;">All Users</span></div>
+        <div><a href="#/male" class="nav" style="text-decoration: none;"><button id="male-nav-button" class="nav-button"><i class="fas fa-male"></i></button></a> <span style="color: rgba(255, 255, 255, 0.7); font-size: 12px;">Male Users</span></div>
+        <div><a href="#/female" class="nav" style="text-decoration: none;"><button id="female-nav-button" class="nav-button" style="background-color: rgb(121, 70, 193); position: relative;"><i class="fas fa-female"></i></button></a> <span style="color: rgba(255, 255, 255, 0.7); font-size: 12px;">Female Users</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="result" style="display: flex; flex-direction: column; width: 50%; position: relative;">
+    <div>
+      <h2 class="route-display" style="font-weight: bolder; line-height: 0; padding: 0px 4px; position: absolute; transition: opacity 0.5s ease; opacity: 1;">
+        All Users
+      </h2>
+      <h2 class="route-display" style="font-weight: bolder; line-height: 0; padding: 0px 4px; position: absolute; transition: opacity 0.5s ease; opacity: 0;">
+        Male Users
+      </h2>
+      <h2 class="route-display" style="font-weight: bolder; line-height: 0; padding: 0px 4px; position: absolute; transition: opacity 0.5s ease; opacity: 0;">
+        Female Users
+      </h2>
+      <h2 class="route-display" style="font-weight: bolder; line-height: 0; padding: 0px 4px; position: absolute; transition: opacity 0.5s ease; opacity: 0;">
+        User List
+      </h2>
+      <p style="font-size: 12px; padding: 0px 4px; margin-top: 44px;">
+        Filter by
+      </p>
+    </div>
+    <div style="display: flex; margin-top: 8px; position: relative;">
+      <div class="input-body" style="background-color: rgb(226, 227, 236); border-radius: 999px; padding: 10px 16px; flex-grow: 1;" value=""><i class="fas fa-search" style="color: rgb(173, 175, 188);"></i>
+        <div style="position: relative; flex-grow: 1; padding-right: 1.2em; overflow: hidden; text-overflow: ellipsis;">
+          <div style="position: absolute; left: 16px; text-overflow: ellipsis;"><span style="letter-spacing: -0.02px; white-space: nowrap; font-size: 14px; font-weight: 500;">Find in list</span></div> <input id="input-2" type="text" style="color: rgba(0, 0, 0, 0.87);">
+        </div>
+      </div> <select name="Country" aria-placeholder="Country" class="country-select" style="margin-left: 1em;">
+        <option value="all" selected="selected">Country</option>
+      </select>
+      <div style="display: flex; align-items: center; margin-left: 1em;"><label class="switch"><input id="show-country-button" type="checkbox"> <span class="slider"></span></label> <label style="font-size: 10px; margin-left: 4px; white-space: nowrap; font-weight: 600; color: rgba(0, 0, 0, 0.62);">Show Country</label></div>
+    </div>
+    <div class="route-house" style="position: relative; margin-top: 24px; flex-grow: 1; z-index: 1;"><button style="cursor: pointer; display: none; position: absolute; z-index: 1; left: 0px; top: 0px;"><i class="fas fa-arrow-left" style="margin-right: 10px; font-size: 18px; opacity: 0.61;"></i> <span style="font-weight: 600;">RESULTS</span></button>
+      <transition-stub name="">
+        <router-view-stub name="default" search="" country="all" class="router-view" style="position: absolute; width: 100%; height: 100%;"></router-view-stub>
+      </transition-stub>
+    </div>
+    <div style="padding-top: 16px; margin-top: auto; background-color: rgb(247, 247, 255); position: relative; z-index: 1;">
+      <div style="display: flex; justify-content: space-between;"><button class="download-button" style="border-radius: 999px; background-color: rgb(121, 70, 193); padding: 8px 12px;">
+          <div style="display: flex; align-items: center;"><i class="fas fa-cloud-download-alt" style="color: white; font-size: 16px;"></i> <span style="color: white; font-size: 10px; margin-left: 6px;">
+              Download results
+            </span></div>
+        </button>
+        <div style="display: flex; align-items: center;"><button id="previous-page-button" disabled="disabled" style="margin-left: 8px; padding: 6px 12px; border-radius: 6px; background-color: rgb(226, 226, 234);"><i class="fas fa-chevron-left"></i></button> <button id="next-page-button" disabled="disabled" style="margin-left: 8px; padding: 6px 12px; border-radius: 6px;"><i class="fas fa-chevron-right" style="color: white;"></i></button></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

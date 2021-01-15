@@ -1,4 +1,3 @@
-// import { render } from "@testing-library/vue";
 import { mount, createLocalVue } from "@vue/test-utils";
 import UserPreview from "../../components/UserPreview";
 import Router from "vue-router";

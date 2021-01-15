@@ -6,12 +6,12 @@
     <img :src="user.picture.medium" style="margin:0 auto" />
     <div style="flex-grow:1;padding:0 20px;">
       <p
-        style="font-weight:bold;line-height:1.1;font-size:14px;color:#262A41;margin-top:0"
+        style="font-weight:bold;line-height:1.1;font-size:14px;color:var(--primary);margin-top:0"
       >
         {{ `${user.name.first} ${user.name.last}` }}
       </p>
       <p
-        style="color:#262A41;font-size:12px;font-style:italic;line-height:1.1;font-weight:600;opacity:0.69"
+        style="color:var(--text-secondary);font-size:12px;font-style:italic;line-height:1.1;font-weight:600;"
         class="location"
       >
         {{
@@ -26,18 +26,18 @@
         <div style="margin-right:16px">
           <i
             class="far fa-envelope"
-            style="color:#BABDD1;font-size:15px;position:relative;top:2px"
+            style="color: var(--icon-primary);font-size:15px;position:relative;top:2px"
           ></i
           >&nbsp;
-          <span style="color:#262A41;opacity:0.52;font-size:13px;">{{
+          <span style="color:var(--text-hint);font-size:13px;">{{
             user.email
           }}</span>
         </div>
         <div>
-          <i class="fas fa-phone-alt" style="color:#BABDD1;font-size:12px"></i
+          <i class="fas fa-phone-alt" style="color: var(--icon-primary);font-size:12px"></i
           >&nbsp;
           <span
-            style="color:#262A41;opacity:0.52;font-size:12px;font-weight:600"
+            style="color:var(--text-hint);font-size:12px;font-weight:600"
             >{{ user.phone }}</span
           >
         </div>
@@ -49,7 +49,7 @@
     >
       <button
         class="route-button"
-        style="background-color:#30bbb5;border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px #30BBB574;cursor:pointer"
+        style="background-color:var(--accent);border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px var(--accent)74;cursor:pointer"
       >
         <i class="fas fa-arrow-right" style="color:white;"></i></button
     ></router-link>
@@ -70,7 +70,7 @@ export default {
 <style scoped>
 img {
   border-radius: 50%;
-  border: 5px solid #75d6d1;
+  border: 5px solid var(--image-border);
   width: 65px;
   height: 65px;
   object-fit: cover;

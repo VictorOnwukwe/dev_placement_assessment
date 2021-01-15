@@ -1,6 +1,8 @@
-import { mount, createLocalVue } from "@vue/test-utils";
+import { mount, config, createLocalVue } from "@vue/test-utils";
 import Users from "../../pages/Users";
 import Vuex from "vuex";
+
+config.showDeprecationWarnings = false;
 
 describe("Users Display Page", () => {
   let allUsers = Array(20)
@@ -39,6 +41,9 @@ describe("Users Display Page", () => {
       },
       localVue,
       stubs: ["router-link"],
+      methods: {
+        updateContent: jest.fn()
+      }
     };
   });
 
@@ -184,50 +189,14 @@ describe("Users Display Page", () => {
         country: "all",
         search: "",
       },
+      methods: {}
     });
 
     expect(wrapper.vm.$data.currentUsers).toEqual(allUsers.slice(6, 9));
   });
 
-  // it("should show circular progress while displayUsers is empty and fetched is false", () => {
-  //   store = new Vuex.Store({
-  //     getters: {
-  //       currentPage: () => 3,
-  //       allUsers: () => []
-  //     },
-  //   });
-  //   const wrapper = mount(Users, {
-  //     ...defaultData,
-  //     store,
-  //     data: () => {
-  //       return {fetched: false}
-  //     }
-  //   });
-
-  //   expect(wrapper.find("div.loader").exists()).toBe(true);
-  // });
-
-  // describe("should hide circular progress", () => {
-    
-  //   it("when displayUsers is not an empty array", () => {
-  //     store = new Vuex.Store({
-  //       getters: {
-  //         currentPage: () => 3,
-  //         allUsers: () => allUsers
-  //       },
-  //     });
-  //     const wrapper = mount(Users, {
-  //       ...defaultData,
-  //       store,
-  //       data: () => {
-  //         return {fetched: false}
-  //       },
-  //       computed: {
-  //         users: () => allUsers
-  //       }
-  //     });
-  
-  //     expect(wrapper.find("div.loader").element.style.display).toBe("none");
-  //   });
-  // })
+  it("should render correctly when passed complete data", () => {
+    const wrapper = mount(Users, {...defaultData});
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });
