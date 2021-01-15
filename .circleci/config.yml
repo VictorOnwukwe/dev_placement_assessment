@@ -14,13 +14,10 @@ jobs:
     steps:
       - checkout
 
-      # find compatible cache from previous build,
-      # it should have same dependencies installed from package.json checksum
-      - restore_cache:
-          keys:
-            - cache-{{ .Branch }}-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - cache-
+      # - restore_cache:
+      #     keys:
+      #       - cache-{{ .Branch }}-{{ checksum "package.json" }}
+      #       - cache-
 
       - save_cache:
           key: cache-{{ .Branch }}-{{ checksum "package.json" }}
@@ -29,10 +26,10 @@ jobs:
             - ~/.npm
             - ~/.cache
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache/Cypress
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - .cache/Cypress
       - run: npm install
       - run:
           command: npm run test
