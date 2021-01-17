@@ -55,4 +55,4 @@ workflows:
   test_build_app:
     jobs:
       - unit_tests
-      - deploy
+      
