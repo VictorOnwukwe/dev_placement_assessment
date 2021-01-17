@@ -32,7 +32,7 @@ jobs:
       #       - .cache/Cypress
       - run: npm install
       - run:
-          command: npm run test
+          command: npm run test -- -u
           environment:
             JEST_JUNIT_OUTPUT: "test-reports/jest-junit.xml"
 
