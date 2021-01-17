@@ -49,7 +49,7 @@
     >
       <button
         class="route-button"
-        style="background-color:var(--accent);border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px var(--accent)74;cursor:pointer"
+        style="background-color:var(--accent);border:none;padding:8px 14px;border-radius:11px;box-shadow: 2px 10px 30px var(--accent);cursor:pointer"
       >
         <i class="fas fa-arrow-right" style="color:white;"></i></button
     ></router-link>
