@@ -42,9 +42,13 @@ jobs:
       - store_artifacts:
           path: test-reports
  
-  build: npm run build
-  deploy: firebase deploy
+  deploy: 
+    <<: *defaults
 
+    steps: 
+      - run: npm run build
+      - run: firebase deploy
+      
 
 workflows:
   version: 2
