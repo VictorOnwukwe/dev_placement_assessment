@@ -46,6 +46,7 @@ jobs:
     <<: *defaults
 
     steps: 
+      - checkout
       - run: npm run build
       - run: firebase deploy
       
@@ -55,4 +56,5 @@ workflows:
   test_build_app:
     jobs:
       - unit_tests
+      - deploy
       
